@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <img src="{{url_for('static', filename=student.image)}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{student.name}} {{student.surname }}</h5>
+          <p class="card-text">{{student.bio}}</p>
+          <a href="/students/" class="btn btn-primary">Back to Students</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

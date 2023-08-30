@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container my-5 py-5">
+        <h1>Update Student</h1>
+        {% if message %} <p>{{message}}</p> {% endif %}
+            <form method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">NAME</label>
+                    <input type="text" name="name" {% if student.name %} value="{{student.name}}" {% endif %} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter NAME">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">SURNAME</label>
+                    <input type="text" name="surname" {% if student.surname %} value="{{student.surname}}" {% endif %} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter SURNAME">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">GENDER</label>
+                    <input type="text" name="gender" {% if student.gender %} value="{{student.gender}}" {% endif %} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter GENDER">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">STATUS</label>
+                    <input type="text" name="status" {% if student.status %} value="{{student.status}}" {% endif %} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter STATUS">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">BIO</label>
+                    <input type="text" name="bio" {% if student.bio %} value="{{student.bio}}" {% endif %} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter BIO">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if not message %}
+        <div class="container my-5 py-5">
+            <form method="POST">
+                <button type="submit">DO YOU AGREE WITH DELETE THIS USER?</button>
+            </form>
+            <a href="/students/">CANCEL</a>
+        </div>
+    {% else %}
+        {{ message }}
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="my-5 text-center">Students</h1>
+    <table class="table">
+        {% if student_count %}  
+            <p>{{student_count}} students founded!</p> 
+        {% endif %}
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Status</th>
+                <th scope="col">Bio</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in students %}
+                <tr>
+                    <!-- <th scope="row"><a href="/students/{{ i.id }}">{{ loop.index }}</a></th> -->
+                    <th scope="row"><a href="/students/{{ i.id }}">{{ i.id }}</a></th>
+                    <td><img style="width:130px; height: 80px;" src=" {% if i.image == 'some image path' %}{{ url_for('static', filename= 'images/def_image.jpeg')}}{% else %} {{url_for('static', filename=i.image)}} {% endif %} " alt=""></td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.surname}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.status}}</td>
+                    <td>{{i.bio}}</td>
+                    <td><a href="{{url_for('update_student', id=i.id)}}">update me</a></td>
+                    <td><a href="{{url_for('delete_student', id=i.id)}}">delete me</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
