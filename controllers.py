@@ -1,8 +1,9 @@
-from flask import render_template, request
+from flask import render_template, request, flash, redirect, url_for
 
 from app import app
 from models import Students
 from extensions import db
+from forms import RegisterForm
 
 from sqlalchemy import or_
 
@@ -11,8 +12,8 @@ from sqlalchemy import or_
 def students():
     student_count:int = None
     q:str = None
-    # students = Students.query.all()
-    students = Students.query.order_by(Students.name.asc())
+    students = Students.query.all()
+    # students = Students.query.order_by(Students.name.asc())
     # students = Students.query.filter_by(status='active')
     if request.args.get("q"):
         # id = request.args.get("q")
@@ -122,4 +123,26 @@ def delete_student(id):
         db.session.commit()
         message = "User with id {id} is deleted".format(id=id)
     return render_template('delete.html', message = message)
+    
+@app.route("/register", methods=["POST", "GET"])
+def register_student():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        student = Students(
+            name = form.name.data,
+            surname = form.surname.data,
+            email = form.email.data,
+            gender = form.gender.data,
+            password = form.password.data,
+            bio = form.bio.data,
+            status = form.status.data,
+
+        )
+
+        flash("User created with successfully!", "success")
+
+        student.save()
+
+        return redirect(url_for("students"))
+    return render_template("register.html", form=form)
     

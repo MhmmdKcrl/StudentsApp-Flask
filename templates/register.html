@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block content %}
+    <div class="container my-5 py-5">
+        {% if not message %}
+        <h1>Register Student</h1>
+            <form method="POST">
+                {{ form.csrf_token }}
+                <!-- {{ form.hidden_tag() }} -->
+
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">NAME</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter NAME"> -->
+                    {{ render_field(form.name, "form-control")}}
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">SURNAME</label>
+                    <input type="text" name="surname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter SURNAME"> -->
+                    {{ render_field(form.surname, "form-control")}}
+
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">GENDER</label>
+                    <input type="text" name="gender" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter GENDER"> -->
+                    {{ render_field(form.gender, "form-control")}}
+
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">STATUS</label>
+                    <input type="text" name="status" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter STATUS"> -->
+                    {{ render_field(form.status, "form-control")}}
+
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">EMAIL</label>
+                    <input type="text" name="bio" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter EMAIL"> -->
+                    {{ render_field(form.email, "form-control")}}
+
+                </div><div class="form-group">
+                    <!-- <label for="exampleInputEmail1">PASSWORD</label>
+                    <input type="text" name="bio" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter PASSWORD"> -->
+                    {{ render_field(form.password, "form-control")}}
+                    
+                </div><div class="form-group">
+                    <!-- <label for="exampleInputEmail1">CONFIRM PASSWORD</label>
+                    <input type="text" name="bio" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CONFIRM PASSWORD"> -->
+                    {{ render_field(form.confirm_password, "form-control")}}
+
+                </div>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                {{ form.submit(class="btn btn-primary") }}
+
+            </form>
+        {% else %}
+           <p>{{ message }}</p>
+           <a class="navbar-brand text-info" href="{{ url_for('create_student') }}">Register new student</a>
+        {% endif %}
+    </div>
+{% endblock content %}
