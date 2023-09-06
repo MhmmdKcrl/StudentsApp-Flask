@@ -1,14 +1,14 @@
-from flask import render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, request, session
 
-from app import app
-from models import Students
+student = Blueprint("student", __name__)
+
+from student.models import Students
 from extensions import db
-from forms import RegisterForm
 
 from sqlalchemy import or_
 
 
-@app.route("/students/")
+@student.route("")
 def students():
     student_count:int = None
     q:str = None
@@ -42,7 +42,7 @@ def students():
                            q=q, user=user)
 
 
-@app.route("/students/<int:id>")
+@student.route("/<int:id>")
 def students_detail(id):
     # student = Students.query.get(id)
     student = db.get_or_404(Students, id)
@@ -52,7 +52,7 @@ def students_detail(id):
     return render_template('student_detail.html', student = student)
 
 
-@app.route("/students/create", methods=["POST", "GET"])
+@student.route("/create", methods=["POST", "GET"])
 def create_student():
     message:str = None
     # if "user" in session:
@@ -74,7 +74,7 @@ def create_student():
     return render_template('create_student.html', message=message, user=user)
 
 
-@app.route("/students/update/<int:id>", methods=["POST", "GET"])
+@student.route("/update/<int:id>", methods=["POST", "GET"])
 def update_student(id):
     student = Students.query.filter_by(id=id)
     message:str = None
@@ -118,7 +118,7 @@ def update_student(id):
     return render_template('update_std.html', student = student[0], message=message)
 
 
-@app.route("/students/delete/<int:id>", methods=["POST", "GET"])
+@student.route("/delete/<int:id>", methods=["POST", "GET"])
 def delete_student(id):
     # # Method 1
     # student = Students.query.get(id)
@@ -132,28 +132,4 @@ def delete_student(id):
         db.session.commit()
         message = "User with id {id} is deleted".format(id=id)
     return render_template('delete.html', message = message)
-    
-@app.route("/register", methods=["POST", "GET"])
-def register_student():
-    if "user" in session:
-        session.pop("user", None)
-    form = RegisterForm()
-    if form.validate_on_submit():
-        student = Students(
-            name = form.name.data,
-            surname = form.surname.data,
-            email = form.email.data,
-            gender = form.gender.data,
-            password = form.password.data,
-            bio = form.bio.data,
-            status = form.status.data,
-
-        )
-
-        flash("User created with successfully!", "success")
-
-        student.save()
-
-        return redirect(url_for("students"))
-    return render_template("register.html", form=form)
-    
+   

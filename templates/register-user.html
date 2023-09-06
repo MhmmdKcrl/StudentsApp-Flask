@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+{% from '_formhelpers.html' import render_field %}
+
+    <div class="container my-5 py-5">
+        {% if not message %}
+        <h1>Register User</h1>
+            <form method="POST">
+                {{form.csrf_token}}
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">NAME</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter NAME"> -->
+                    {{render_field(form.name, "form-control")}}
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">NAME</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter NAME"> -->
+                    {{render_field(form.surname, "form-control")}}
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">NAME</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter NAME"> -->
+                    {{render_field(form.email, "form-control")}}
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">SURNAME</label>
+                    <input type="text" name="surname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter SURNAME"> -->
+                    {{render_field(form.password, "form-control")}}
+
+                </div>
+                <div class="form-group">
+                    <!-- <label for="exampleInputEmail1">SURNAME</label>
+                    <input type="text" name="surname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter SURNAME"> -->
+                    {{render_field(form.confirm_password, "form-control")}}
+
+                </div>
+                       
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                <div class="d-flex w-100 justify-content-between">
+                    {{form.submit( class="btn btn-primary")}}
+                    <a class="navbar-brand text-info" href="{{ url_for('auth.login') }}">Login</a>
+                </div>
+
+            </form>
+        {% else %}
+           
+        {% endif %}
+    </div>
+{% endblock content %}
